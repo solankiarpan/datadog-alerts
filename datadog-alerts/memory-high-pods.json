@@ -1,7 +1,7 @@
 {
 	"name": "Pod Memory high",
 	"type": "query alert",
-	"query": "max(last_5m):sum:kubernetes.memory.usage_pct{kube_cluster_name:rabbitmq} by {pod_name} > 0.9",
+	"query": "max(last_5m):sum:kubernetes.memory.usage_pct{kube_cluster_name:rabbitmq} by {pod_name,kube_namespace} >= 0.9",
 	"message": "This is to let you know that Memory has crossed the configured threshold for one of the pods.\nNotify: @datadogaccount@email.com",
 	"tags": [],
 	"options": {
