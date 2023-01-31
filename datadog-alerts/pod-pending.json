@@ -1,0 +1,17 @@
+{
+	"name": "Minimum 1 Pod is Pending for > 5m",
+	"type": "query alert",
+	"query": "min(last_5m):sum:kubernetes_state.pod.status_phase{kube_cluster_name:rabbitmq AND pod_phase:pending} > 1",
+	"message": "This is to let you know that at least 1 Pod stayed in the state Pending for more than 5 minutes.\\\nNotify: @datadogaccount@email.com",
+	"tags": [],
+	"options": {
+		"thresholds": {
+			"critical": 1
+		},
+		"notify_audit": false,
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"include_tags": false
+	}
+}

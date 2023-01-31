@@ -1,0 +1,19 @@
+{
+	"name": "Pod CPU high",
+	"type": "query alert",
+	"query": "max(last_5m):sum:kubernetes.cpu.usage.total{kube_cluster_name:rabbitmq} by {pod_name} / (sum:kubernetes.cpu.limits{kube_cluster_name:rabbitmq} by {pod_name} * 1000000000) >= 0.9",
+	"message": "This is to let you know that CPU has crossed the configured threshold for one of the pods.\nNotify: @datadogaccount@email.com",
+	"tags": [],
+	"options": {
+		"thresholds": {
+			"critical": 0.9,
+			"warning": 0.8
+		},
+		"notify_audit": false,
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"include_tags": true,
+		"new_group_delay": 60
+	}
+}
