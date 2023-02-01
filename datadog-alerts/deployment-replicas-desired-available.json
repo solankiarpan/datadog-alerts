@@ -1,0 +1,18 @@
+{
+	"name": "Deployment replicas desired > available",
+	"type": "query alert",
+	"query": "avg(last_5m):sum:kubernetes_state.deployment.replicas_desired{kube_cluster_name IN (rabbitmq,second,third) AND kube_namespace NOT IN (kube-system,another)} by {kube_cluster_name,kube_namespace,kube_deployment} - sum:kubernetes_state.deployment.replicas_available{kube_cluster_name IN (rabbitmq,second,third) AND kube_namespace NOT IN (kube-system,another)} by {kube_cluster_name,kube_namespace,kube_deployment} >= 1",
+	"message": "This is to let you know that the average number of deployments with desired number of replicas greater than available is more than 1 for more than 5 minutes.\nNotify: @datadogaccount@email.com",
+	"tags": [],
+	"options": {
+		"thresholds": {
+			"critical": 1
+		},
+		"notify_audit": false,
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"include_tags": true,
+		"new_group_delay": 60
+	}
+}
