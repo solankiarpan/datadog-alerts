@@ -1,7 +1,7 @@
 {
 	"name": "Pods in error state for > 5m",
 	"type": "query alert",
-	"query": "avg(last_5m):exclude_null(sum:kubernetes_state.pod.ready{condition:false,!pod_phase:succeeded,kube_cluster_name:rabbitmq} by {kube_namespace}) >= 1",
+	"query": "avg(last_5m):exclude_null(sum:kubernetes_state.pod.ready{condition:false AND NOT pod_phase:succeeded AND kube_cluster_name IN (rabbitmq,second,third) AND kube_namespace NOT IN (kube-system,another)} by {kube_cluster_name,kube_namespace,pod_name}) >= 1",
 	"message": "This is to let you know that the average number of pods in error state has exceeded 1 for more than 5 minutes.\nNotify: @datadogaccount@email.com",
 	"tags": [],
 	"options": {

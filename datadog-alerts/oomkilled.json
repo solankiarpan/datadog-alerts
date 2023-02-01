@@ -1,7 +1,7 @@
 {
 	"name": "Container OOM Killed",
 	"type": "query alert",
-	"query": "max(last_5m):sum:kubernetes.containers.state.terminated{kube_cluster_name:rabbitmq AND reason:oomkilled} by {pod_name} > 1",
+	"query": "max(last_5m):sum:kubernetes.containers.state.terminated{kube_cluster_name IN (rabbitmq,second,third) AND kube_namespace NOT IN (kube-system,another) AND reason:oomkilled} by {kube_cluster_name,kube_namespace,pod_name} > 1",
 	"message": "This is to let you know that a container was OOM Killed.\nNotify: @datadogaccount@email.com",
 	"tags": [],
 	"options": {
